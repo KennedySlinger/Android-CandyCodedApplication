@@ -28,6 +28,10 @@ import cz.msebera.android.httpclient.Header;
 public class MainActivity extends AppCompatActivity {
     private Candy[] candies;
     private CandyDbHelper candyDbHelper = new CandyDbHelper(this);
+    private boolean item;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +75,23 @@ public class MainActivity extends AppCompatActivity {
                         Cursor cursor = db.rawQuery("SELECT * FROM candy", null);
                         //adapter.changeCursor(cursor);
                     }
+
                 });
+
+
+    }
+
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+
+
+    @Override
+    protected boolean onPrepareOptionsPanel(View view, Menu menu) {
+        return super.onPrepareOptionsPanel(view, menu);
     }
 
     @Override
@@ -85,12 +105,24 @@ public class MainActivity extends AppCompatActivity {
     // ***
 
 
+
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent infoIntent= new Intent(this, InfoActivity.class);
+    public boolean onContextItemSelected(MenuItem item) {
+        Intent infoIntent = new Intent(this, InfoActivity.class);
         startActivity(infoIntent);
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent infoIntent = new Intent(this, InfoActivity.class);
+        startActivity(infoIntent);
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
 
     private void addCandiesToDatabase(Candy[] candies) {
         SQLiteDatabase db = candyDbHelper.getWritableDatabase();
@@ -104,5 +136,8 @@ public class MainActivity extends AppCompatActivity {
 
             db.insert(CandyEntry.TABLE_NAME, null, values);
         }
+
     }
+
 }
+
